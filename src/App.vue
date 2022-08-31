@@ -2,7 +2,7 @@
 
   <div id="app">   
     <MyHeader @searchKeyword="setParams"/>
-    <MyMain :filmList="filmList"/>
+    <MyMain :filmList="filmList" :seriesList="seriesList"/>
   </div>
 
 </template>
@@ -24,7 +24,8 @@ export default {
       apiUrl:'https://api.themoviedb.org/3',
       apiKey: '80278f7ae9fb5378d2944e6b0489885b',
       language: 'it-IT',
-      filmList: []
+      filmList: [],
+      seriesList:[]
 
     }
   },
@@ -34,10 +35,20 @@ export default {
     .then(reply => {
       this.filmList= reply.data.results;
     })
-    
+
     .catch(error =>{
-     console.log (error);
+    console.log (error);
     });
+    
+    axios.get(this.apiUrl +'/search/tv?api_key='+ this.apiKey + '&language='+ this.language +'&query='+ keyword)
+    .then(reply => {
+      this.seriesList= reply.data.results;
+    })
+
+    .catch(error =>{
+    console.log (error);
+    })
+
 
 
     }
