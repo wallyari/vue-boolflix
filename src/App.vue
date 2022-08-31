@@ -1,28 +1,52 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+
+  <div id="app">   
+    <MyHeader @searchKeyword="setParams"/>
+    <MyMain :filmList="filmList"/>
   </div>
+
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import MyHeader from './components/MyHeader.vue';
+import MyMain from './components/MyMain.vue';
+import axios from 'axios';
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    MyHeader,
+    MyMain
+  },
+  
+  data(){
+    return{
+      apiUrl:'https://api.themoviedb.org/3',
+      apiKey: '80278f7ae9fb5378d2944e6b0489885b',
+      language: 'it-IT',
+      filmList: []
+
+    }
+  },
+  methods:{
+  setParams(keyword){
+    axios.get(this.apiUrl +'/search/movie?api_key='+ this.apiKey + '&language='+ this.language +'&query='+ keyword)
+    .then(reply => {
+      this.filmList= reply.data.results;
+    })
+    
+    .catch(error =>{
+     console.log (error);
+    });
+
+
+    }
   }
 }
 </script>
 
 <style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+@import "~bootstrap/scss/bootstrap.scss";
+@import '~@fortawesome/fontawesome-free/css/all.css';
+
 </style>
