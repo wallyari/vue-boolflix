@@ -9,9 +9,10 @@
                             <li v-for="(film,index) in filmList" :key="index">
                                 <!-- Poster -->
                                 <img :src="'https://image.tmdb.org/t/p/w92' + film.poster_path " :alt="'Poster for' + film.title" >
-                                {{film.title}}-
-                                {{film.original_title}}-
-                                {{film.original_language}}-
+                                {{film.title}}- <br>
+                                {{film.original_title}} <br>
+                                {{film.original_language}} <br>
+                                {{film.overview}}-
                                 <!-- Flags -->
                                 <img class="flags" v-if="avaibleFlags.includes(film.original_language)"
                                 :src="require('../assets/images/'+ film.original_language + '.png')">
