@@ -19,6 +19,10 @@
                                 {{film.original_language}}  
                                 </span>
                                 {{film.vote_average}}-
+                                <div>
+                                    <!-- v-for with a Range -->
+                                    <i v-for="n in 5" class="fa-star" :class="(n>=getVote(film.vote_average)?' fa-regular':'fa-solid')" :key="n"></i>
+                                </div>
                             </li>                    
                         </ul>
                         </div>
@@ -56,6 +60,12 @@ export default {
     data(){
         return{
             avaibleFlags:['it','en','fr']
+        }
+    },
+    methods:{
+        getVote(decimalVote){
+            return Math.ceil(decimalVote / 2);
+
         }
     }    
 }
