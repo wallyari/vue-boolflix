@@ -10,6 +10,11 @@
                                 {{film.title}}-
                                 {{film.original_title}}-
                                 {{film.original_language}}-
+                                <img class="flags" v-if="avaibleFlags.includes(film.original_language)"
+                                :src="require('../assets/images/'+ film.original_language + '.png')">
+                                <span v-else>
+                                {{film.original_language}}  
+                                </span>
                                 {{film.vote_average}}-
                             </li>                    
                         </ul>
@@ -22,10 +27,12 @@
                                 {{series.name}}-
                                 {{series.original_name}}-
                                 {{series.original_language}}-
+                                <img class="flags" v-if="avaibleFlags.includes(series.original_language)"
+                                :src="require('../assets/images/'+ series.original_language + '.png')">
                                 {{series.vote_average}}-
                             </li>                    
                         </ul>
-
+<img src="" alt="">
 
                         </div>
                 </div>
@@ -39,9 +46,12 @@ export default {
     props:{
         filmList: Array,
         seriesList:Array
-    }
-
-    
+    },
+    data(){
+        return{
+            avaibleFlags:['it','en','fr']
+        }
+    }    
 }
 </script>
 
@@ -51,4 +61,8 @@ main{
     height: calc(100vh - 80px);
     width: 100%;
 }
+.flags{
+    width: 30px;
+}
+
 </style> 

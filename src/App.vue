@@ -31,7 +31,16 @@ export default {
   },
   methods:{
   setParams(keyword){
-    axios.get(this.apiUrl +'/search/movie?api_key='+ this.apiKey + '&language='+ this.language +'&query='+ keyword)
+    const paramsObj={
+        params: {
+        api_key:this.apiKey,
+        language: this.language,
+        query: keyword
+      }
+    };
+
+    axios.get(this.apiUrl +'/search/movie', paramsObj
+    )
     .then(reply => {
       this.filmList= reply.data.results;
     })
@@ -40,7 +49,7 @@ export default {
     console.log (error);
     });
     
-    axios.get(this.apiUrl +'/search/tv?api_key='+ this.apiKey + '&language='+ this.language +'&query='+ keyword)
+    axios.get(this.apiUrl +'/search/tv', paramsObj)
     .then(reply => {
       this.seriesList= reply.data.results;
     })
